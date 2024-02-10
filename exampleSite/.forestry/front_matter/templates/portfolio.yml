@@ -20,6 +20,9 @@ fields:
 - type: image_gallery
   name: project_images
   label: project_images
+- type: text
+  name: project_links
+  label: project_links
 pages:
 - content/portfolio/seamless-watch.md
 - content/portfolio/use-less-brand.md

@@ -12,8 +12,49 @@
             {{ .Content }}
           </div>
           <div class="site-project-single-image">
-            {{ range .Params.project_images }}
-            <img src="{{ . | absURL }}" alt="project image" style="width: 100%; padding: 10px;">
+            {{ $videos := slice "https://drive.google.com/file/d/1UUFzOjqtn3NejXLU3YWjZy0D7Bjt4Qmh/view?usp=sharing" 
+            "https://drive.google.com/file/d/1PCCUGYsFc42kWuFWATH3t2D4yVm8GYrS/view?usp=sharing" 
+            "https://drive.google.com/file/d/1nrpRkf9HoWMUYSe7N_nAHZoOIp59-jEf/view?usp=sharing" 
+            "https://drive.google.com/file/d/1wWStI2YHFhtvx-2D25ua4bcurtMlHXAU/view?usp=sharing" 
+            }}
+            {{ $titles := slice "truncated tube" "xxx" "xxxx" "xxxxx"}}
+            {{ $descs := slice "xx" "xxx" "xxxx" "xxxxx"}}
+            {{ range $index, $image := .Params.project_images }}
+            {{ if in . "prototype" }}
+
+            <div class="col-lg-4 col-md-6 mb-4">
+              <div class="card">
+                <img src="{{ $image | absURL }}" class="card-img-top w-100" alt="project image" data-toggle="modal" data-target="#videoModal{{ $index }}">
+                <div class="card-body">
+                  <h5 class="card-title">{{ index $titles $index }}</h5>
+                  <p class="card-text">{{ index $descs $index }}</p>
+                  <p class="card-text">Click the image for Video!</p>
+                </div>
+              </div>
+  
+              <div class="modal fade" id="videoModal{{ $index }}" tabindex="-1" role="dialog" aria-labelledby="videoModalLabel" aria-hidden="true">
+                  <div class="modal-dialog modal-lg" role="document">
+                      <div class="modal-content">
+                          <div class="modal-header">
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                              </button>
+                          </div>
+                          <div class="modal-body">
+                              <div class="embed-responsive embed-responsive-16by9">
+                                  <iframe class="embed-responsive-item" src="{{ index $videos $index }}" allowfullscreen></iframe>
+                              </div>
+                          </div>
+                          <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+            </div>
+          {{ else }}
+              <img src="{{ $image | absURL }}" alt="project image" style="width: 100%; padding: 10px;">
+          {{ end }}
             {{ end }}
           </div>
           {{ if .PrevInSection }}
